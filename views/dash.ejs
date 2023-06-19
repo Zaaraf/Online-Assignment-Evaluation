@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partials/nav')%>
+
+    <section class="dash-section">
+        <h1>Pending Assignments</h1>
+        <br>
+        <!-- <hr>  -->
+        <div class="experiment-list">
+            
+            
+                <% pendingAssignments.forEach((assignment, i)=>{ %>
+                <div class="experiment">
+                    <a href="/aassignment/<%= assignment._id %>"><%= assignment.title %></a> 
+                </div>
+                <% }); %>
+        
+        </div>
+        <hr >
+        <h1>Submitted Assignments</h1>
+        <br>
+        <!-- <hr> -->
+        <div class="experiment-list">
+            
+            <% completedAssignments.forEach((assignment, i)=>{ %>
+            <div class="experiment">
+                <a href="/aassignment/<%= assignment.parentAssignment._id %>"><%= assignment.parentAssignment.title %></a> 
+            </div>
+            <% }); %>
+        </div>
+    </section>
+</body>
+</html>
