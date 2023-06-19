@@ -127,10 +127,10 @@ router.get("/aassignment/:id", async (req, res) => {
   let fileName = assignment.fileURL.split("/")[1];
 
   const completedAssignment = await CompletedAssignment.findOne({
-    parentAssignment: assignment._id,
+    completedBy: req.user._id,
   });
   let isSubmitted = false;
-  // console.log(completedAssignment);
+  console.log(completedAssignment);
 
   if (completedAssignment) {
     isSubmitted = true;
