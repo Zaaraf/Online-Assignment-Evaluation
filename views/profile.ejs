@@ -1,0 +1,19 @@
+<%- include('partials/header')%>
+<%- include('partials/nav')%>
+
+<section class="dash-section d-flex justify-content-center align-item-center flex-column">
+  <div class="container">
+    <div class="m-2 p-1 border-bottom">
+      <h1>Profile</h1>
+    </div>
+    <br>
+    <!-- <hr>  -->
+    <div class="text-align-center">
+      <h3 class="mb-3 border">First Name: <%= user.firstName %></h3>
+      <h3 class="mb-3 border">Last Name: <%= user.lastName %></h3>
+      <h3 class="mb-3 border">User Type: <%= user.type %></h3>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer')%>

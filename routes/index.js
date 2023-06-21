@@ -98,6 +98,21 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+router.get("/profile", check.isLoggedin, async (req, res) => {
+  if (req.user) {
+    const user = await User.findOne({
+      _id: req.user._id,
+    });
+    // console.log(user);
+    // console.log(req.user._id);
+    res.render("profile", {
+      user,
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
+
 router.get("/dash", check.isLoggedin, async (req, res) => {
   if (req.user.type === "student") {
     const completedAssignments = await CompletedAssignment.find({
@@ -111,7 +126,29 @@ router.get("/dash", check.isLoggedin, async (req, res) => {
     });
 
     let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
-    res.render("dash", {
+    res.render("dash-new", {
+      completedAssignments,
+      pendingAssignments,
+    });
+  } else {
+    res.render("t-dash");
+  }
+});
+
+router.get("/dash-submitted", check.isLoggedin, async (req, res) => {
+  if (req.user.type === "student") {
+    const completedAssignments = await CompletedAssignment.find({
+      completedBy: req.user._id,
+    })
+      .populate("parentAssignment")
+      .exec();
+
+    let ids = completedAssignments.map((ca) => {
+      return `${ca.parentAssignment._id}`;
+    });
+
+    let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
+    res.render("dash-submitted", {
       completedAssignments,
       pendingAssignments,
     });
@@ -128,9 +165,9 @@ router.get("/aassignment/:id", async (req, res) => {
 
   const completedAssignment = await CompletedAssignment.findOne({
     completedBy: req.user._id,
+    parentAssignment: assignment._id,
   });
   let isSubmitted = false;
-  console.log(completedAssignment);
 
   if (completedAssignment) {
     isSubmitted = true;
