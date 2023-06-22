@@ -64,11 +64,12 @@ router.get("/login", check.isGuest, (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const { firstName, lastName, username, password, type } = req.body;
+  const { firstName, lastName, username, email, password, type } = req.body;
   const NewUser = new User({
     username,
     firstName,
     lastName,
+    email,
     type,
   });
 

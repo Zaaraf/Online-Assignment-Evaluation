@@ -1,19 +1,51 @@
 <%- include('partials/header')%>
 <%- include('partials/nav')%>
 
-<section class="dash-section d-flex justify-content-center align-item-center flex-column">
-  <div class="container">
-    <div class="m-2 p-1 border-bottom">
-      <h1>Profile</h1>
-    </div>
-    <br>
-    <!-- <hr>  -->
-    <div class="text-align-center">
-      <h3 class="mb-3 border">First Name: <%= user.firstName %></h3>
-      <h3 class="mb-3 border">Last Name: <%= user.lastName %></h3>
-      <h3 class="mb-3 border">User Type: <%= user.type %></h3>
+<div class="container mt-3 d-flex flex-column justify-content-center align-items-center">
+  <div class="border-bottom text-center">
+    <h1>Profile</h1>
+  </div>
+  <div class="col-12 col-md-6 col-lg-5 pb-3">
+    <div class="card">
+      <form>
+        <fieldset disabled>
+          <ul class="list-group list-group-flush ">
+            <li class="list-group-item">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label"><strong>First Name:</strong></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail3" value="<%= user.firstName %>">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label"><strong>Last Name:</strong></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail3" value="<%= user.lastName %>">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label"><strong>User Type:</strong></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail3" value="<%= user.type %>">
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-4 col-form-label"><strong>User Email:</strong></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail3" value="<%= user.email %>">
+                </div>
+              </div>
+            </li>
+        </fieldset>
+      </form>
     </div>
   </div>
-</section>
+</div>
 
 <%- include('partials/footer')%>
