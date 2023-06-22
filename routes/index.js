@@ -10,28 +10,12 @@ const assignment = require("../models/assignment");
 const completedAssignment = require("../models/completed-assignment");
 const mongoose = require("mongoose");
 
-// ***************************************************
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "public/uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-// ***************************************************
-
 // ********** Cloud Upload ***********
 const {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
 } = require("@aws-sdk/client-s3");
-
-// delete this: not needed
-// const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegion = process.env.BUCKET_REGION;
@@ -161,7 +145,6 @@ router.get("/dash-submitted", check.isLoggedin, async (req, res) => {
 router.get("/aassignment/:id", async (req, res) => {
   const assignment = await Assignment.findOne({ _id: req.params.id });
 
-  // console.log(assignment);
   let fileName = assignment.fileURL.split("/")[1];
 
   const completedAssignment = await CompletedAssignment.findOne({
@@ -187,9 +170,6 @@ router.get("/aassignment/:id", async (req, res) => {
 });
 
 router.post("/project/submit/:id", upload.single("file"), async (req, res) => {
-  // console.log("req.body", req.body);
-  // console.log("req.file", req.file);
-
   let teacherId = await Assignment.findOne({ _id: req.params.id });
 
   // ****************************************************************

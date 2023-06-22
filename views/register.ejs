@@ -7,10 +7,10 @@
       <div class="card shadow">
         <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="" class="card-img-top" />
         <div class="card-body">
-          <h5 class="card-title">Register</h5>
-          <form action="/register" method="POST">
+          <h5 class="card-title border-bottom pb-2 text-center">Register</h5>
+          <form action="/register" class="needs-validation" method="POST" novalidate>
             <div class="mb-2">
-              <label class="form-label" for="username">Username</label>
+              <label class="form-label" for="username">College ID:</label>
               <input class="form-control" type="text" name="username" id="username" required autofocus>
               <div class="invalid-feedback">
                 Cannot be empty!
@@ -19,7 +19,7 @@
 
             <div class="mb-2">
               <label class="form-label" for="firstName">First Name:</label>
-              <input class="form-control" type="text" name="firstName" maxlength="10">
+              <input class="form-control" type="text" name="firstName" maxlength="10" required>
               <div class="invalid-feedback">
                 Cannot be empty!
               </div>
@@ -27,7 +27,7 @@
 
             <div class="mb-2">
               <label class="form-label" for="lastName">Last Name:</label>
-              <input class="form-control" type="text" name="lastName" maxlength="10">
+              <input class="form-control" type="text" name="lastName" maxlength="10" required>
               <div class="invalid-feedback">
                 Cannot be empty!
               </div>
@@ -35,7 +35,7 @@
 
             <div class="mb-2">
               <label class="form-label" for="email">Email:</label>
-              <input class="form-control" type="email" name="email" maxlength="35">
+              <input class="form-control" type="email" name="email" maxlength="35" required>
               <div class="invalid-feedback">
                 Cannot be empty!
               </div>
@@ -43,7 +43,7 @@
 
             <div class="mb-2">
               <label class="form-label" for="password">Password:</label>
-              <input class="form-control" type="password" name="password" maxlength="35">
+              <input class="form-control" type="password" name="password" maxlength="35" required>
               <div class="invalid-feedback">
                 Cannot be empty!
               </div>
@@ -51,7 +51,7 @@
 
             <div class="mb-2">
               <label class="form-label" for="type">Type:</label>
-              <select class="form-control" type="dropdown" name="type">
+              <select class="form-control" type="dropdown" name="type" required>
                 <option value="student">student</option>
                 <option value="teacher">teacher</option><br>
               </select>
@@ -61,7 +61,7 @@
             </div>
 
 
-            <div class="d-grid">
+            <div class="d-grid mt-4">
               <button class="btn btn-success">Register</button>
             </div>
           </form>
@@ -70,5 +70,28 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
 
 <%- include('partials/footer')%>

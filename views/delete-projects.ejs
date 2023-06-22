@@ -6,13 +6,17 @@
   <div class="m-2 p-1 border-bottom text-center">
     <h1> Click on assignment to delete </h1>
   </div>
+  <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+    <h5 class="alert-heading">Warning!</h5>
+    <p class="text-small">Clicking on delete will delete that assignemnt from everywhere.</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div class="row">
     <% assignments.forEach((assignment, i)=>{ %>
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card text-center">
         <div class="card-body">
-          <h5 class="card-title"><%= assignment.title %></h5>
-          <p class="card-text">Warning: Clicking on delete will delete the assignemnt from everywhere </p>
+          <h5 class="card-title border-bottom pb-2">Assignment Title: <%= assignment.title %></h5>
           <a href="/admin/project/<%= assignment._id %>/delete" class="btn btn-danger">Delete</a>
         </div>
         <a href=><%=  %></a>
