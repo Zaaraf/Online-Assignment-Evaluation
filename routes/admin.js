@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const Assignment = require("../models/assignment");
+const check = require("../middleware/check");
 const User = require("../models/user");
 const multer = require("multer");
 const path = require("path");
@@ -30,6 +31,10 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // ********** Cloud Upload ***********
+
+router.get("/t-dash", check.isLoggedin, async (req, res) => {
+  res.render("t-dash");
+});
 
 router.get("/addproject", (req, res) => {
   res.render("add-project");
@@ -97,9 +102,7 @@ router.post("/project/:id/delete", async (req, res) => {
 });
 
 router.post("/addproject", upload.single("file"), async (req, res) => {
-  // console.log("req.body", req.body);
-  // console.log("req.file", req.file);
-
+  // adding file
   // ****************************************************************
   const randomNum = Math.floor(Math.random() * 5000);
   const fileName = req.file.originalname.split(" ").join("");
@@ -129,7 +132,7 @@ router.post("/addproject", upload.single("file"), async (req, res) => {
     dueDate: new Date(req.body.due_date),
     createdBy: req.user._id,
   });
-  res.redirect("/dash");
+  res.redirect("/admin/projects");
 });
 
 router.post("/:id/givemarks", async (req, res) => {

@@ -73,7 +73,11 @@ router.post(
     failureRedirect: "/login",
   }),
   (req, res) => {
-    res.redirect("/dash");
+    if (req.user.type === "student") {
+      res.redirect("/dash");
+    } else {
+      res.redirect("/admin/t-dash");
+    }
   }
 );
 
@@ -99,47 +103,42 @@ router.get("/profile", check.isLoggedin, async (req, res) => {
 });
 
 router.get("/dash", check.isLoggedin, async (req, res) => {
-  if (req.user.type === "student") {
-    const completedAssignments = await CompletedAssignment.find({
-      completedBy: req.user._id,
-    })
-      .populate("parentAssignment")
-      .exec();
+  res.render("dash");
+});
 
-    let ids = completedAssignments.map((ca) => {
-      return `${ca.parentAssignment._id}`;
-    });
+router.get("/dash-new", check.isLoggedin, async (req, res) => {
+  const completedAssignments = await CompletedAssignment.find({
+    completedBy: req.user._id,
+  })
+    .populate("parentAssignment")
+    .exec();
 
-    let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
-    res.render("dash-new", {
-      completedAssignments,
-      pendingAssignments,
-    });
-  } else {
-    res.render("t-dash");
-  }
+  let ids = completedAssignments.map((ca) => {
+    return `${ca.parentAssignment._id}`;
+  });
+
+  let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
+  res.render("dash-new", {
+    pendingAssignments,
+  });
 });
 
 router.get("/dash-submitted", check.isLoggedin, async (req, res) => {
-  if (req.user.type === "student") {
-    const completedAssignments = await CompletedAssignment.find({
-      completedBy: req.user._id,
-    })
-      .populate("parentAssignment")
-      .exec();
+  const completedAssignments = await CompletedAssignment.find({
+    completedBy: req.user._id,
+  })
+    .populate("parentAssignment")
+    .exec();
 
-    let ids = completedAssignments.map((ca) => {
-      return `${ca.parentAssignment._id}`;
-    });
+  let ids = completedAssignments.map((ca) => {
+    return `${ca.parentAssignment._id}`;
+  });
 
-    let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
-    res.render("dash-submitted", {
-      completedAssignments,
-      pendingAssignments,
-    });
-  } else {
-    res.render("t-dash");
-  }
+  let pendingAssignments = await Assignment.find({ _id: { $nin: ids } });
+  res.render("dash-submitted", {
+    completedAssignments,
+    pendingAssignments,
+  });
 });
 
 router.get("/aassignment/:id", async (req, res) => {
@@ -200,7 +199,7 @@ router.post("/project/submit/:id", upload.single("file"), async (req, res) => {
     completedBy: req.user._id,
   });
 
-  res.redirect("/dash");
+  res.redirect("/dash-submitted");
 });
 
 module.exports = router;
