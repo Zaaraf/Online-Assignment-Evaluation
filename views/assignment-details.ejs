@@ -15,6 +15,9 @@
       <li class="list-group-item"><strong>Reference:</strong> <a href="https://<%= assignment.fileURL %>"><%= fileName %></a></li>
       <li class="list-group-item"><strong>Due Date:</strong> <%=  formatDate(assignment.dueDate) %></li>
       <li class="list-group-item"><strong>Marks:</strong> <%= assignment.marks %></li>
+      <% if(completedAssignment) { %>
+      <li class="list-group-item"><strong>Submitted: </strong><a href="https://<%= completedAssignment.completedFile %>" target="_blank">Your File</a></li>
+      <% } %>
       <li class="list-group-item">
         <% if(!isSubmitted && (formatDate(assignment.dueDate) > formatDate(new Date()))){ %>
         <form action="/project/submit/<%= assignment._id %>" method="POST" enctype="multipart/form-data">
@@ -32,7 +35,7 @@
           <p><strong>Marks Obtained:</strong> <button type="button" class="btn btn-danger" disabled>0 Marks (due date passed!)</button> </p>
         </div>
         <% } else { %>
-        <div class="upload">
+        <div class="marks">
           <% if(completedAssignment) { %>
           <p><strong>Marks Obtained:</strong> <button type="button" class="btn btn-secondary " disabled> <%= completedAssignment.givenMarks > 0 ? completedAssignment.givenMarks : `pending` %> </button> </p>
           <% } else { %>

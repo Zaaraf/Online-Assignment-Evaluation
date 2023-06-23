@@ -17,7 +17,9 @@
       <div class="card text-center">
         <div class="card-body">
           <h5 class="card-title border-bottom pb-2">Assignment Title: <%= assignment.title %></h5>
-          <a href="/admin/project/<%= assignment._id %>/delete" class="btn btn-danger">Delete</a>
+          <form action="/admin/project/<%= assignment._id %>/delete" method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
         </div>
         <a href=><%=  %></a>
       </div>

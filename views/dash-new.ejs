@@ -2,9 +2,15 @@
 <%- include('partials/nav')%>
 
 <div class="container">
+  <% if(pendingAssignments.length < 1) {%>
   <div class="m-2 p-1 border-bottom text-center">
-    <h1>New Assignments</h1>
+    <h1>No new assignments for you</h1>
   </div>
+  <% } else { %>
+  <div class="m-2 p-1 border-bottom text-center">
+    <h1>New assignments for you</h1>
+  </div>
+  <% } %>
   <div class="row">
     <!-- <hr>  -->
     <% pendingAssignments.forEach((assignment, i)=>{ %>
